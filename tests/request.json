@@ -1,0 +1,7 @@
+{
+  "id": "",
+  "params": {
+    "names": ["test_is_ok", "test_is_failed"],
+    "tag": "test"
+  }
+}

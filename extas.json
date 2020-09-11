@@ -1,0 +1,49 @@
+{
+  "name": "extas/grades",
+  "export": {
+    "plugins": [
+      {
+        "class": "extas\\components\\plugins\\grades\\GradeTerms",
+        "stage": "extas.grade.terms"
+      },
+      {
+        "class": "extas\\components\\plugins\\grades\\GradeCoefficients",
+        "stage": "extas.grade.coefficients"
+      },
+      {
+        "class": "extas\\components\\plugins\\grades\\Grades",
+        "stage": "extas.grade"
+      }
+    ]
+  },
+  "jsonrpc_operations": [
+    {
+      "name": "grade.calculate",
+      "title": "Calculate grades",
+      "description": "Calculate grades",
+      "method": "calculate",
+      "class": "extas\\components\\operations\\jsonrpc\\GradeCalculate",
+      "specs": {
+        "request": {
+          "type": "object",
+          "properties": {
+            "names": {
+              "type": "array"
+            },
+            "tag": {
+              "type": "string"
+            }
+          }
+        },
+        "response": {
+          "type": "object",
+          "properties": {
+            "grades": {
+              "type": "object"
+            }
+          }
+        }
+      }
+    }
+  ]
+}
