@@ -13,6 +13,7 @@ use extas\interfaces\grades\IHasCoefficients;
 trait THasCoefficients
 {
     use THasHttpIO;
+    use THasGradeName;
 
     /**
      * @return array
@@ -20,7 +21,8 @@ trait THasCoefficients
     public function getCoefficientsWithIO(): array
     {
         return $this->getHttpIO([
-            IHasCoefficients::FIELD__COEFFICIENTS => $this->config[IHasCoefficients::FIELD__COEFFICIENTS] ?? []
+            IHasCoefficients::FIELD__COEFFICIENTS => $this->config[IHasCoefficients::FIELD__COEFFICIENTS] ?? [],
+            IHasCoefficients::FIELD__GRADE_NAME => $this->getGradeName()
         ]);
     }
 }

@@ -9,7 +9,7 @@ use extas\interfaces\http\IHasHttpIO;
  * @package extas\interfaces\grades
  * @author jeyroik <jeyroik@gmail.com>
  */
-interface IHasCoefficients extends IHasHttpIO
+interface IHasCoefficients extends IHasHttpIO, IHasGradeName
 {
     public const FIELD__COEFFICIENTS = 'coefficients';
 

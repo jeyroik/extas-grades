@@ -3,6 +3,7 @@ namespace extas\components\operations\jsonrpc;
 
 use extas\components\api\jsonrpc\operations\OperationRunner;
 use extas\interfaces\grades\IHasCoefficients;
+use extas\interfaces\grades\IHasGradeName;
 use extas\interfaces\grades\IHasTerms;
 use extas\interfaces\http\IHasHttpIO;
 use extas\interfaces\stages\IStageGrade;
@@ -46,7 +47,9 @@ class GradeCalculate extends OperationRunner implements IHasHttpIO
     protected function runTermsStage(string $gradeName): array
     {
         $terms = [];
-        $config = $this->getHttpIO();
+        $config = $this->getHttpIO([
+            IHasGradeName::FIELD__GRADE_NAME => $gradeName
+        ]);
 
         foreach ($this->getPluginsByStage(IStageGradeTerms::NAME, $config) as $plugin) {
             $terms = $plugin($terms);
@@ -67,7 +70,10 @@ class GradeCalculate extends OperationRunner implements IHasHttpIO
     protected function runCoefficientsStage(string $gradeName, array $terms): array
     {
         $coefficients = [];
-        $config = $this->getHttpIO([IHasTerms::FIELD__TERMS => $terms]);
+        $config = $this->getHttpIO([
+            IHasTerms::FIELD__TERMS => $terms,
+            IHasGradeName::FIELD__GRADE_NAME => $gradeName
+        ]);
 
         foreach ($this->getPluginsByStage(IStageGradeCoefficients::NAME, $config) as $plugin) {
             $coefficients = $plugin($coefficients);
@@ -88,7 +94,10 @@ class GradeCalculate extends OperationRunner implements IHasHttpIO
     protected function runGradesStage(string $gradeName, array $coefficients): array
     {
         $grade = [];
-        $config = $this->getHttpIO([IHasCoefficients::FIELD__COEFFICIENTS => $coefficients]);
+        $config = $this->getHttpIO([
+            IHasCoefficients::FIELD__COEFFICIENTS => $coefficients,
+            IHasGradeName::FIELD__GRADE_NAME => $gradeName
+        ]);
 
         foreach ($this->getPluginsByStage(IStageGrade::NAME, $config) as $plugin) {
             $grade = $plugin($grade);

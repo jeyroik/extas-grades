@@ -86,8 +86,23 @@ class GradeCalculateTest extends TestCase
         ]));
 
         $this->createWithSnuffRepo('pluginRepository', new Plugin([
+            Plugin::FIELD__CLASS => GradeTerms::class,
+            Plugin::FIELD__STAGE => IStageGradeTerms::NAME . '.test_is_ok'
+        ]));
+
+        $this->createWithSnuffRepo('pluginRepository', new Plugin([
             Plugin::FIELD__CLASS => GradeCoefficients::class,
             Plugin::FIELD__STAGE => IStageGradeCoefficients::NAME
+        ]));
+
+        $this->createWithSnuffRepo('pluginRepository', new Plugin([
+            Plugin::FIELD__CLASS => GradeCoefficients::class,
+            Plugin::FIELD__STAGE => IStageGradeCoefficients::NAME . '.test_is_ok'
+        ]));
+
+        $this->createWithSnuffRepo('pluginRepository', new Plugin([
+            Plugin::FIELD__CLASS => Grades::class,
+            Plugin::FIELD__STAGE => IStageGrade::NAME
         ]));
 
         $this->createWithSnuffRepo('pluginRepository', new Plugin([

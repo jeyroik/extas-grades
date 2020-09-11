@@ -13,6 +13,7 @@ use extas\interfaces\grades\IHasTerms;
 trait THasTerms
 {
     use THasHttpIO;
+    use THasGradeName;
 
     /**
      * @return array
@@ -20,7 +21,8 @@ trait THasTerms
     public function getTermsWithIO(): array
     {
         return $this->getHttpIO([
-            IHasTerms::FIELD__TERMS => $this->config[IHasTerms::FIELD__TERMS] ?? []
+            IHasTerms::FIELD__TERMS => $this->config[IHasTerms::FIELD__TERMS] ?? [],
+            IHasTerms::FIELD__GRADE_NAME => $this->getGradeName()
         ]);
     }
 }

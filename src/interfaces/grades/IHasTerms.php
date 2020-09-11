@@ -9,7 +9,7 @@ use extas\interfaces\http\IHasHttpIO;
  * @package extas\interfaces\grades
  * @author jeyroik <jeyroik@gmail.com>
  */
-interface IHasTerms extends IHasHttpIO
+interface IHasTerms extends IHasHttpIO, IHasGradeName
 {
     public const FIELD__TERMS = 'terms';
 

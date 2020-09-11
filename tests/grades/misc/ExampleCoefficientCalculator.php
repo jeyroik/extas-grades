@@ -2,6 +2,7 @@
 namespace tests\grades\misc;
 
 use extas\components\terms\TermCalculator;
+use extas\interfaces\grades\IHasGradeName;
 use extas\interfaces\grades\IHasTerms;
 use extas\interfaces\terms\ITerm;
 
@@ -20,9 +21,10 @@ class ExampleCoefficientCalculator extends TermCalculator
      */
     public function canCalculate(ITerm $term, array $args = []): bool
     {
+        $gradeName = $args[IHasGradeName::FIELD__GRADE_NAME] ?? '';
         $terms = $args[IHasTerms::FIELD__TERMS] ?? [];
 
-        return !empty($terms);
+        return !empty($terms) && ($gradeName != 'test_is_failed');
     }
 
     /**

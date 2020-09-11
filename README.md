@@ -1,7 +1,7 @@
 ![tests](https://github.com/jeyroik/extas-grades/workflows/PHP%20Composer/badge.svg?branch=master&event=push)
 ![codecov.io](https://codecov.io/gh/jeyroik/extas-grades/coverage.svg?branch=master)
 <a href="https://github.com/phpstan/phpstan"><img src="https://img.shields.io/badge/PHPStan-enabled-brightgreen.svg?style=flat" alt="PHPStan Enabled"></a> 
-
+<a href="https://codeclimate.com/github/jeyroik/extas-grades/maintainability"><img src="https://api.codeclimate.com/v1/badges/bd3b3eb964ac9e486b60/maintainability" /></a>
 [![Latest Stable Version](https://poser.pugx.org/jeyroik/extas-grades/v)](//packagist.org/packages/jeyroik/extas-q-crawlers)
 [![Total Downloads](https://poser.pugx.org/jeyroik/extas-grades/downloads)](//packagist.org/packages/jeyroik/extas-q-crawlers)
 [![Dependents](https://poser.pugx.org/jeyroik/extas-grades/dependents)](//packagist.org/packages/jeyroik/extas-q-crawlers)
