@@ -20,6 +20,11 @@ class GradeCalculate extends OperationRunner implements IHasHttpIO
 {
     public const SPECS__NAMES = 'names';
     public const SPECS__GRADES = 'grades';
+    public const SPECS__VERBOSITY = 'verbosity';
+
+    public const VERB__GRADES = 'v';
+    public const VERB__COEFFICIENTS = 'vv';
+    public const VERB__TERMS = 'vvv';
 
     /**
      * @return array
@@ -69,7 +74,7 @@ class GradeCalculate extends OperationRunner implements IHasHttpIO
      */
     protected function runCoefficientsStage(string $gradeName, array $terms): array
     {
-        $coefficients = [];
+        $coefficients = $this->isVerbosity(static::VERB__TERMS) ? $terms : [];
         $config = $this->getHttpIO([
             IHasTerms::FIELD__TERMS => $terms,
             IHasGradeName::FIELD__GRADE_NAME => $gradeName
@@ -93,7 +98,7 @@ class GradeCalculate extends OperationRunner implements IHasHttpIO
      */
     protected function runGradesStage(string $gradeName, array $coefficients): array
     {
-        $grade = [];
+        $grade = $this->isVerbosity(static::VERB__COEFFICIENTS) ? $coefficients : [];
         $config = $this->getHttpIO([
             IHasCoefficients::FIELD__COEFFICIENTS => $coefficients,
             IHasGradeName::FIELD__GRADE_NAME => $gradeName
@@ -108,5 +113,22 @@ class GradeCalculate extends OperationRunner implements IHasHttpIO
         }
 
         return $grade;
+    }
+
+    /**
+     * @return string
+     */
+    protected function getVerbosity(): string
+    {
+        return $this->getJsonRpcRequest()->getParams([])[static::SPECS__VERBOSITY] ?? static::VERB__GRADES;
+    }
+
+    /**
+     * @param string $verb
+     * @return bool
+     */
+    protected function isVerbosity(string $verb): bool
+    {
+        return strpos($this->getVerbosity(), $verb) !== false;
     }
 }
