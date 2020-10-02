@@ -78,6 +78,76 @@ class GradeCalculateTest extends TestCase
         );
     }
 
+    public function testVerbosityVv()
+    {
+        $this->createTerms();
+        $this->createCoefficients();
+        $this->createGrades();
+        $this->createCalculators();
+        $this->installDefaultPlugins();
+
+        $operation = new GradeCalculate();
+        $result = $operation([
+            GradeCalculate::FIELD__PSR_REQUEST => $this->getPsrRequest('.vv'),
+            GradeCalculate::FIELD__PSR_RESPONSE => $this->getPsrResponse()
+        ]);
+
+        $this->assertEquals(
+            [
+                'grades' =>
+                    [
+                        'test_is_ok' => [
+                            'test_term_3' => 3, // From term description.
+                            'test_c' => 6,
+                            'test_c_2' => 6,
+                            'test_grade' => 15,  // Cf1(1+2+3) + Cf2(1+2+3) + Term3(3) = 15
+                        ],
+                        'test_is_failed' => []  // Grade plugin is available only for test_is_ok.
+                    ]
+            ],
+            $result,
+            'Incorrect result: ' . print_r($result, true)
+        );
+    }
+
+    public function testVerbosityVvv()
+    {
+        $this->createTerms();
+        $this->createCoefficients();
+        $this->createGrades();
+        $this->createCalculators();
+        $this->installDefaultPlugins();
+
+        $operation = new GradeCalculate();
+        $result = $operation([
+            GradeCalculate::FIELD__PSR_REQUEST => $this->getPsrRequest('.vvv'),
+            GradeCalculate::FIELD__PSR_RESPONSE => $this->getPsrResponse()
+        ]);
+
+        $this->assertEquals(
+            [
+                'grades' =>
+                    [
+                        'test_is_ok' => [
+                            'test_term' => 1,
+                            'test_term_2' => 2,
+                            'test_term_3' => 3, // From term description.
+                            'test_c' => 6,
+                            'test_c_2' => 6,
+                            'test_grade' => 18  // Cf1(1+2+3) + Cf2(1+2+3) + Term3(3) + Term(1) + Term2(2) = 18
+                        ],
+                        'test_is_failed' => [
+                            'test_term' => 1,
+                            'test_term_2' => 2,
+                            'test_term_3' => 3
+                        ]
+                    ]
+            ],
+            $result,
+            'Incorrect result: ' . print_r($result, true)
+        );
+    }
+
     protected function installDefaultPlugins()
     {
         $this->createWithSnuffRepo('pluginRepository', new Plugin([
